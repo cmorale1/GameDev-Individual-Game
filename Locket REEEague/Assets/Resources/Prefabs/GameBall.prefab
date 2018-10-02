@@ -173,15 +173,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988261823683980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4a34514f325340c3bd6eaaf6ad7ea5e, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 3
-  jumpPower: 300
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 512
-  groundRadius: 0.1
 --- !u!212 &212692091070454226
 SpriteRenderer:
   m_ObjectHideFlags: 1
