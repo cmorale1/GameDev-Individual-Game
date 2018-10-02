@@ -39,11 +39,4 @@ public class Manager : MonoBehaviour {
             matchTimeText.text = "Game Over!";
         }
     }
-
-    void updateScore()
-    {
-        // Handles for checking to see whether ball touched Team A or Team B's goal
-        // If touched Team A's goal, update Team B's score
-        // If touched Team B's goal, update Team A's score
-    }
 }
