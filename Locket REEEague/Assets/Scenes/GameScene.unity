@@ -1105,11 +1105,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4508897131025874, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -1.28
+      value: -2.58
       objectReference: {fileID: 0}
     - target: {fileID: 4508897131025874, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.91
+      value: -1.81
       objectReference: {fileID: 0}
     - target: {fileID: 4508897131025874, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamAScore: 0
   teamBScore: 0
-  timeLeft: 60
+  timeLeft: 10
 --- !u!1 &1602258274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,7 +2846,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 07408725cd0d2444fac352cdc5334ac5, type: 2}
-  m_Interpolate: 1
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
@@ -3265,7 +3265,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4508897131025874, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.91
+      value: -1.83
       objectReference: {fileID: 0}
     - target: {fileID: 4508897131025874, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3303,7 +3303,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 0a518ffa6233f334b8a9f18417eed125, type: 2}
     - target: {fileID: 4680439636066922, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ebc53f414e88b341a6578d915a7965c, type: 2}

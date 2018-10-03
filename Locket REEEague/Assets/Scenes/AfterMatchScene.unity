@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 596695543}
   - component: {fileID: 596695542}
   - component: {fileID: 596695541}
+  - component: {fileID: 596695544}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -488,6 +489,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &596695544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 596695539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c413c1670e668a41a85f3f6c30cec75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1319881130
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +511,7 @@ GameObject:
   - component: {fileID: 1319881133}
   - component: {fileID: 1319881132}
   m_Layer: 0
-  m_Name: TeamA_Score
+  m_Name: FinalTeamA_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -711,7 +723,7 @@ GameObject:
   - component: {fileID: 1569949436}
   - component: {fileID: 1569949435}
   m_Layer: 0
-  m_Name: TeamB_Score
+  m_Name: FinalTeamB_Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

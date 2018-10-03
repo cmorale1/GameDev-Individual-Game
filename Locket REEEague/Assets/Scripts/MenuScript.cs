@@ -7,5 +7,7 @@ public class MenuScript : MonoBehaviour {
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        PlayerPrefs.SetFloat("TeamA_TotalScore", 0f);
+        PlayerPrefs.SetFloat("TeamB_TotalScore", 0f);
     }
 }

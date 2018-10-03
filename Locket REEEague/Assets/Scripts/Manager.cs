@@ -20,7 +20,6 @@ public class Manager : MonoBehaviour {
         teamBScoreText = GameObject.Find("TeamB_Score").GetComponent<Text>();
         teamAScoreText.text = "Team A: " + teamAScore;
         teamBScoreText.text = "Team B: " + teamBScore;
-        Debug.Log(teamAScore);
 	}
 	
 	// Update is called once per frame

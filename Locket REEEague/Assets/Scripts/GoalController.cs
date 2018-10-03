@@ -75,6 +75,7 @@ public class GoalController : MonoBehaviour {
             GetComponent<AudioSource>().Play();
             opposingTeamScore++;
             opposingTeamScoreText.text = opposingTeamName+": "+opposingTeamScore.ToString();
+            PlayerPrefs.SetFloat(opposingTeamName + "_TotalScore", opposingTeamScore);
             resetPositions();
         }
     }
