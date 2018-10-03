@@ -22,14 +22,14 @@ public class PlayerMovementScript : MonoBehaviour {
     private float originalAngle = 0.0f;
 
     private bool firstJump;
-    private bool boosting;
+    private bool airRolling;
 
     //private Animator anim;
 
 	// Use this for initialization
 	void Start () {
         firstJump = false;
-        boosting = false;
+        airRolling = false;
         resetPosition = transform.position;
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
@@ -62,19 +62,20 @@ public class PlayerMovementScript : MonoBehaviour {
             theRigidbody.AddForce(new Vector2(0, jumpPower));
             firstJump = false;
         }
-        if (Input.GetButtonDown(teamName + "_Boost") && !boosting)
+        if (Input.GetButtonDown(teamName + "_Boost") && !airRolling)
         {
-            boosting = true;
+            airRolling = true;
         }
-        if (Input.GetButtonUp(teamName + "_Boost") && boosting)
+        if (Input.GetButtonUp(teamName + "_Boost") && airRolling)
         {
-            boosting = false;
+            airRolling = false;
         }
-        if (boosting)
+        if (airRolling)
         {
-            theRigidbody.velocity = new Vector2(inputX * boostSpeed, theRigidbody.velocity.y);
+            //theRigidbody.velocity = new Vector2(inputX * boostSpeed, theRigidbody.velocity.y);
+            transform.Rotate(Vector3.back * Time.deltaTime * 720f);
         }
-        if (!boosting)
+        if (!airRolling)
         {
             theRigidbody.velocity = theRigidbody.velocity = new Vector2(inputX * walkSpeed, theRigidbody.velocity.y);
         }
