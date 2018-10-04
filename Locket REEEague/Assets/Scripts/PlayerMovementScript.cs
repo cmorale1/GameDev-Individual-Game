@@ -8,6 +8,9 @@ public class PlayerMovementScript : MonoBehaviour {
     public float walkSpeed = 10f;
     private float boostSpeed = 20f;
     public float jumpPower = 500f;
+    private float rotationSpeed = 0f;
+    private float rotationRight = 360f;
+    private float rot = 0f;
     public string teamName = "";
 
     public LayerMask groundMask;
@@ -19,10 +22,11 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private Vector3 resetPosition;
     private Quaternion groundedRotationPosition;
-    private float originalAngle = 0.0f;
+    private Quaternion originalAngle;
 
     private bool firstJump;
     private bool airRolling;
+    private bool falling;
 
     //private Animator anim;
 
@@ -30,6 +34,10 @@ public class PlayerMovementScript : MonoBehaviour {
 	void Start () {
         firstJump = false;
         airRolling = false;
+        falling = false;
+        rotationRight = 360f;
+        
+        originalAngle = transform.rotation;
         resetPosition = transform.position;
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
@@ -58,6 +66,7 @@ public class PlayerMovementScript : MonoBehaviour {
         }
         if (firstJump && jumping && !grounded)
         {
+            falling = true;
             theRigidbody.velocity = new Vector2(theRigidbody.velocity.x, 0f);
             theRigidbody.AddForce(new Vector2(0, jumpPower));
             firstJump = false;
@@ -72,16 +81,64 @@ public class PlayerMovementScript : MonoBehaviour {
         }
         if (airRolling)
         {
-            //theRigidbody.velocity = new Vector2(inputX * boostSpeed, theRigidbody.velocity.y);
-            transform.Rotate(Vector3.back * Time.deltaTime * 720f);
+            if(teamName == "TeamA")
+            {
+                transform.Rotate(Vector3.back * Time.deltaTime * 200f);
+            }
+            if(teamName == "TeamB")
+            {
+                transform.Rotate(Vector3.forward * Time.deltaTime * 200f);
+            }
         }
         if (!airRolling)
         {
             theRigidbody.velocity = theRigidbody.velocity = new Vector2(inputX * walkSpeed, theRigidbody.velocity.y);
         }
-        if (!grounded && jumping)
+        if (!grounded && jumping && !firstJump)
         {
             transform.rotation = new Quaternion(groundedRotationPosition.x, groundedRotationPosition.y, groundedRotationPosition.z, groundedRotationPosition.w);
         }
+        if (grounded)
+        {
+            falling = false;
+            transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        }
+        if (falling)
+        {
+            if(teamName == "TeamA")
+            {
+                rotationSpeed = 400f;
+                rot = rotationSpeed * Time.deltaTime;
+                rotationRight -= rot;
+                transform.Rotate(0, 0, -rot);
+            }
+            if(teamName == "TeamB")
+            {
+                rotationSpeed = 400f;
+                rot = rotationSpeed * Time.deltaTime;
+                rotationRight -= rot;
+                transform.Rotate(0, 0, rot);
+            }
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+    }
+
 }
