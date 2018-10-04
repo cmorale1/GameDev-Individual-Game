@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerMovementScript : MonoBehaviour {
 
     public float walkSpeed = 10f;
-    private float boostSpeed = 20f;
     public float jumpPower = 500f;
     private float rotationSpeed = 0f;
     private float rotationRight = 360f;
@@ -20,13 +19,16 @@ public class PlayerMovementScript : MonoBehaviour {
     private Transform groundCheckLeft;
     private Transform groundCheckRight;
 
-    private Vector3 resetPosition;
     private Quaternion groundedRotationPosition;
-    private Quaternion originalAngle;
 
     private bool firstJump;
     private bool airRolling;
     private bool falling;
+
+    private SpriteRenderer vehicleSpRend;
+    private float rVal;
+    private float gVal;
+    private float bVal;
 
     //private Animator anim;
 
@@ -37,13 +39,27 @@ public class PlayerMovementScript : MonoBehaviour {
         falling = false;
         rotationRight = 360f;
         
-        originalAngle = transform.rotation;
-        resetPosition = transform.position;
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
         //anim = GetComponent<Animator>();
         groundCheckLeft = transform.Find("LeftGround");
         groundCheckRight = transform.Find("RightGround");
+
+        vehicleSpRend = GetComponent<SpriteRenderer>();
+        if(teamName == "TeamA")
+        {
+            rVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
+            gVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
+            bVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+        }
+        if(teamName == "TeamB")
+        {
+            rVal = PlayerPrefs.GetFloat("RightImage_RedValue");
+            gVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
+            bVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+        }
+
+        vehicleSpRend.color = new Color(rVal, gVal, bVal);
 	}
 	
 	// Update is called once per frame
@@ -67,6 +83,7 @@ public class PlayerMovementScript : MonoBehaviour {
         if (firstJump && jumping && !grounded)
         {
             falling = true;
+            GetComponent<AudioSource>().Play();
             theRigidbody.velocity = new Vector2(theRigidbody.velocity.x, 0f);
             theRigidbody.AddForce(new Vector2(0, jumpPower));
             firstJump = false;
