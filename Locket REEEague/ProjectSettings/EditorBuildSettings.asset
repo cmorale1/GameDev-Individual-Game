@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/StartScene.unity
     guid: 5c9fa0b1b13ab7247a6202c03a4e0b45
+  - enabled: 1
+    path: Assets/Scenes/ColorSettingsScene.unity
+    guid: d7ad07d13e8020f4c946b87059a70d06
   m_configObjects: {}

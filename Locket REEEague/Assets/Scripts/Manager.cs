@@ -13,15 +13,33 @@ public class Manager : MonoBehaviour {
     private Text teamBScoreText;
     public float timeLeft = 60.0f;
 
-	// Use this for initialization
-	void Start () {
+    private float teamARVal;
+    private float teamAGVal;
+    private float teamABVal;
+
+    private float teamBRVal;
+    private float teamBGVal;
+    private float teamBBVal;
+
+    // Use this for initialization
+    void Start () {
         matchTimeText = GameObject.Find("MatchTime").GetComponent<Text>();
         teamAScoreText = GameObject.Find("TeamA_Score").GetComponent<Text>();
         teamBScoreText = GameObject.Find("TeamB_Score").GetComponent<Text>();
-        teamAScoreText.text = "Team A: " + teamAScore;
-        teamBScoreText.text = "Team B: " + teamBScore;
-        Debug.Log(teamAScore);
-	}
+        teamAScoreText.text = teamAScore.ToString();
+        teamBScoreText.text = teamBScore.ToString();
+
+        teamARVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
+        teamAGVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
+        teamABVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+
+        teamBRVal = PlayerPrefs.GetFloat("RightImage_RedValue");
+        teamBGVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
+        teamBBVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+
+        teamAScoreText.color = new Color(teamARVal, teamAGVal, teamABVal);
+        teamBScoreText.color = new Color(teamBRVal, teamBGVal, teamBBVal);
+    }
 	
 	// Update is called once per frame
 	void Update () {

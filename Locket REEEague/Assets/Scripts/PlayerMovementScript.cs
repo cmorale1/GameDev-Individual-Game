@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class PlayerMovementScript : MonoBehaviour {
 
     public float walkSpeed = 10f;
-    private float boostSpeed = 20f;
     public float jumpPower = 500f;
+    private float rotationSpeed = 0f;
+    private float rotationRight = 360f;
+    private float rot = 0f;
     public string teamName = "";
 
     public LayerMask groundMask;
@@ -17,25 +19,47 @@ public class PlayerMovementScript : MonoBehaviour {
     private Transform groundCheckLeft;
     private Transform groundCheckRight;
 
-    private Vector3 resetPosition;
     private Quaternion groundedRotationPosition;
-    private float originalAngle = 0.0f;
 
     private bool firstJump;
-    private bool boosting;
+    private bool airRolling;
+    private bool falling;
+
+    private SpriteRenderer vehicleSpRend;
+    private float rVal;
+    private float gVal;
+    private float bVal;
 
     //private Animator anim;
 
 	// Use this for initialization
 	void Start () {
         firstJump = false;
-        boosting = false;
-        resetPosition = transform.position;
+        airRolling = false;
+        falling = false;
+        rotationRight = 360f;
+        
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
         //anim = GetComponent<Animator>();
         groundCheckLeft = transform.Find("LeftGround");
         groundCheckRight = transform.Find("RightGround");
+
+        vehicleSpRend = GetComponent<SpriteRenderer>();
+        if(teamName == "TeamA")
+        {
+            rVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
+            gVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
+            bVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+        }
+        if(teamName == "TeamB")
+        {
+            rVal = PlayerPrefs.GetFloat("RightImage_RedValue");
+            gVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
+            bVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+        }
+
+        vehicleSpRend.color = new Color(rVal, gVal, bVal);
 	}
 	
 	// Update is called once per frame
@@ -58,29 +82,80 @@ public class PlayerMovementScript : MonoBehaviour {
         }
         if (firstJump && jumping && !grounded)
         {
+            falling = true;
+            GetComponent<AudioSource>().Play();
             theRigidbody.velocity = new Vector2(theRigidbody.velocity.x, 0f);
             theRigidbody.AddForce(new Vector2(0, jumpPower));
             firstJump = false;
         }
-        if (Input.GetButtonDown(teamName + "_Boost") && !boosting)
+        if (Input.GetButtonDown(teamName + "_Boost") && !airRolling)
         {
-            boosting = true;
+            airRolling = true;
         }
-        if (Input.GetButtonUp(teamName + "_Boost") && boosting)
+        if (Input.GetButtonUp(teamName + "_Boost") && airRolling)
         {
-            boosting = false;
+            airRolling = false;
         }
-        if (boosting)
+        if (airRolling)
         {
-            theRigidbody.velocity = new Vector2(inputX * boostSpeed, theRigidbody.velocity.y);
+            if(teamName == "TeamA")
+            {
+                transform.Rotate(Vector3.back * Time.deltaTime * 200f);
+            }
+            if(teamName == "TeamB")
+            {
+                transform.Rotate(Vector3.forward * Time.deltaTime * 200f);
+            }
         }
-        if (!boosting)
+        if (!airRolling)
         {
             theRigidbody.velocity = theRigidbody.velocity = new Vector2(inputX * walkSpeed, theRigidbody.velocity.y);
         }
-        if (!grounded && jumping)
+        if (!grounded && jumping && !firstJump)
         {
             transform.rotation = new Quaternion(groundedRotationPosition.x, groundedRotationPosition.y, groundedRotationPosition.z, groundedRotationPosition.w);
         }
+        if (grounded)
+        {
+            falling = false;
+            transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        }
+        if (falling)
+        {
+            if(teamName == "TeamA")
+            {
+                rotationSpeed = 400f;
+                rot = rotationSpeed * Time.deltaTime;
+                rotationRight -= rot;
+                transform.Rotate(0, 0, -rot);
+            }
+            if(teamName == "TeamB")
+            {
+                rotationSpeed = 400f;
+                rot = rotationSpeed * Time.deltaTime;
+                rotationRight -= rot;
+                transform.Rotate(0, 0, rot);
+            }
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            theRigidbody.angularVelocity = 0f;
+            falling = false;
+        }
+    }
+
 }
