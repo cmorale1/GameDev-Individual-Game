@@ -21,6 +21,8 @@ public class GoalController : MonoBehaviour {
     private GameObject thisTeamVehicle;
     private GameObject opposingTeamVehicle;
 
+    private Animator ballAnim;
+
     private Rigidbody2D ballRigidBody;
     private Rigidbody2D thisTeamRigidBody;
     private Rigidbody2D opposingTeamRigidBody;
@@ -32,11 +34,16 @@ public class GoalController : MonoBehaviour {
     private float gVal;
     private float bVal;
 
+    private ParticleSystem leftPSystem;
+    private ParticleSystem rightPSystem;
+
     // Use this for initialization
     void Start () {
         opposingTeamScoreText = GameObject.Find(opposingTeamName+"_Score").GetComponent<Text>();
 
         ball = GameObject.Find("GameBall");
+        ballAnim = ball.GetComponent<Animator>();
+        ballAnim.SetBool("goalMade", false);
         thisTeamVehicle = GameObject.Find(thisTeamName + "_Vehicle");
         opposingTeamVehicle = GameObject.Find(opposingTeamName + "_Vehicle");
 
@@ -48,13 +55,18 @@ public class GoalController : MonoBehaviour {
         thisTeamResetPosition = thisTeamVehicle.transform.position;
         opposingTeamResetPosition = opposingTeamVehicle.transform.position;
 
-        if(thisTeamName == "TeamA")
+        leftPSystem = GameObject.Find("LeftParticleSystem").GetComponent<ParticleSystem>();
+        rightPSystem = GameObject.Find("RightParticleSystem").GetComponent<ParticleSystem>();
+
+        if (thisTeamName == "TeamA")
         {
             mainNetSpRend = GameObject.Find("mainLeftNet").GetComponent<SpriteRenderer>();
             topNetSpRend = GameObject.Find("topLeftNet").GetComponent<SpriteRenderer>();
             rVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
             gVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
             bVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+            //leftPSystem.startColor = new Color(rVal, gVal, bVal);
+            
         }
         if(thisTeamName == "TeamB")
         {
@@ -63,6 +75,7 @@ public class GoalController : MonoBehaviour {
             rVal = PlayerPrefs.GetFloat("RightImage_RedValue");
             gVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
             bVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+            //rightPSystem.startColor = new Color(rVal, gVal, bVal);
         }
 
         mainNetSpRend.color = new Color(rVal, gVal, bVal);
@@ -77,7 +90,9 @@ public class GoalController : MonoBehaviour {
     // This could probably be put into a Coroutine or Observer
     void resetPositions()
     {
+        //ballAnim.SetBool("goalMade", false);
         ball.transform.position = ballResetPosition;
+        ball.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
         thisTeamVehicle.transform.position = thisTeamResetPosition;
         opposingTeamVehicle.transform.position = opposingTeamResetPosition;
         ballRigidBody.velocity = new Vector2(0, 0);
@@ -93,6 +108,15 @@ public class GoalController : MonoBehaviour {
         // Collision check for game ball and the goal this script is attached to
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameBall"))
         {
+            ballAnim.SetBool("goalMade", true);
+            Debug.Log("Animation triggered: " + ballAnim.GetBool("goalMade"));
+            if(opposingTeamName == "TeamA")
+            {
+                rightPSystem.Play();
+            } else if(opposingTeamName == "TeamB")
+            {
+                leftPSystem.Play();
+            }
             GetComponent<AudioSource>().Play();
             opposingTeamScore++;
             opposingTeamScoreText.text = opposingTeamScore.ToString();
