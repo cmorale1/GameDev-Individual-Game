@@ -51,8 +51,8 @@ GameObject:
   - component: {fileID: 4828524693678596}
   - component: {fileID: 212692091070454226}
   - component: {fileID: 50751084033201260}
-  - component: {fileID: 95099917731579910}
   - component: {fileID: 58653193936534440}
+  - component: {fileID: 95345355686066576}
   m_Layer: 10
   m_Name: GameBall
   m_TagString: Untagged
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 07408725cd0d2444fac352cdc5334ac5, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -136,16 +136,16 @@ CircleCollider2D:
   m_Offset: {x: 0.0013909534, y: -0.0002931941}
   serializedVersion: 2
   m_Radius: 0.49087584
---- !u!95 &95099917731579910
+--- !u!95 &95345355686066576
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988261823683980}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1fc191acf52214489f736d8e4a78070, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -169,7 +169,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 0a518ffa6233f334b8a9f18417eed125, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

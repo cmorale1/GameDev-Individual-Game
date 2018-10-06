@@ -156,6 +156,17 @@ Prefab:
       propertyPath: m_Name
       value: LeftGoalParent
       objectReference: {fileID: 0}
+    - target: {fileID: 114222409031916940, guid: d40363d8bb174834c9ce0b8a5fd7c2d4,
+        type: 2}
+      propertyPath: gameBallPrefab
+      value: 
+      objectReference: {fileID: 1988261823683980, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
+        type: 2}
+    - target: {fileID: 114222409031916940, guid: d40363d8bb174834c9ce0b8a5fd7c2d4,
+        type: 2}
+      propertyPath: goalExplosionSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 989527abb50211e4e92f4c421655f4c3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d40363d8bb174834c9ce0b8a5fd7c2d4, type: 2}
   m_IsPrefabAsset: 0
@@ -230,7 +241,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1186526114657708, guid: 50297e5ecb4c11b4a8fe59ceda719a40, type: 2}
       propertyPath: m_Name
-      value: Wall (2)
+      value: RightWall
       objectReference: {fileID: 0}
     - target: {fileID: 212005081165013896, guid: 50297e5ecb4c11b4a8fe59ceda719a40,
         type: 2}
@@ -6116,6 +6127,8 @@ MonoBehaviour:
   thisTeamName: TeamB
   thisTeamScore: 0
   opposingTeamScore: 0
+  gameBallPrefab: {fileID: 1988261823683980, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
+    type: 2}
 --- !u!61 &1071357717
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6331,24 +6344,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1988261823683980, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
     type: 2}
   m_PrefabInternal: {fileID: 1954245794}
---- !u!95 &1256374766
-Animator:
-  serializedVersion: 3
+--- !u!111 &1256374766
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1256374765}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e1fc191acf52214489f736d8e4a78070, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 43b4c1dc966affa4599fac82ec716444, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1281687407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1186526114657708, guid: 50297e5ecb4c11b4a8fe59ceda719a40,
@@ -6779,7 +6788,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1186526114657708, guid: 50297e5ecb4c11b4a8fe59ceda719a40, type: 2}
       propertyPath: m_Name
-      value: Wall (1)
+      value: Ceiling
       objectReference: {fileID: 0}
     - target: {fileID: 212005081165013896, guid: 50297e5ecb4c11b4a8fe59ceda719a40,
         type: 2}
@@ -6878,7 +6887,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1186526114657708, guid: 50297e5ecb4c11b4a8fe59ceda719a40, type: 2}
       propertyPath: m_Name
-      value: Wall
+      value: LeftWall
       objectReference: {fileID: 0}
     - target: {fileID: 212005081165013896, guid: 50297e5ecb4c11b4a8fe59ceda719a40,
         type: 2}
@@ -7125,23 +7134,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 95099917731579910, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 7f5df182c395853409382bb01610dc42, type: 2}
-    - target: {fileID: 50751084033201260, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
-        type: 2}
-      propertyPath: m_Material
-      value: 
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 212692091070454226, guid: 4bab4130b8aa4f34ea9310ace37b15f7,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    m_RemovedComponents:
-    - {fileID: 95099917731579910, guid: 4bab4130b8aa4f34ea9310ace37b15f7, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4bab4130b8aa4f34ea9310ace37b15f7, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1955676612

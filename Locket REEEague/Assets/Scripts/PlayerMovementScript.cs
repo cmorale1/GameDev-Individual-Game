@@ -10,7 +10,7 @@ public class PlayerMovementScript : MonoBehaviour {
     private float rotationSpeed = 0f;
     private float rotationRight = 360f;
     private float rot = 0f;
-    public string teamName = "";
+    public string teamName;
 
     public LayerMask groundMask;
     public float groundRadius = 0.1f;
@@ -26,11 +26,7 @@ public class PlayerMovementScript : MonoBehaviour {
     private bool falling;
 
     private SpriteRenderer vehicleSpRend;
-    private float rVal;
-    private float gVal;
-    private float bVal;
-
-    //private Animator anim;
+    private float rVal, gVal, bVal;
 
 	// Use this for initialization
 	void Start () {
@@ -38,13 +34,10 @@ public class PlayerMovementScript : MonoBehaviour {
         airRolling = false;
         falling = false;
         rotationRight = 360f;
-        
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
         groundCheckLeft = transform.Find("LeftGround");
         groundCheckRight = transform.Find("RightGround");
-
         vehicleSpRend = GetComponent<SpriteRenderer>();
         if(teamName == "TeamA")
         {
@@ -64,11 +57,10 @@ public class PlayerMovementScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        movePlayer();
-        //anim.SetFloat("speed", Mathf.Abs(theRigidbody.velocity.x));
+        MovePlayer();
     }
 
-    void movePlayer()
+    void MovePlayer()
     {
         float inputX = Input.GetAxis(teamName + "_Horizontal");
         bool grounded = Physics2D.OverlapCircle(groundCheckLeft.position, groundRadius, groundMask) && Physics2D.OverlapCircle(groundCheckRight.position, groundRadius, groundMask);
