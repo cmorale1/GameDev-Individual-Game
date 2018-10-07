@@ -212,7 +212,7 @@ MonoBehaviour:
   redSlider: {fileID: 1689675394}
   greenSlider: {fileID: 1497400232}
   blueSlider: {fileID: 1745605649}
-  imgName: RightImage
+  imgName: TeamB
 --- !u!1 &100192518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1032,7 @@ MonoBehaviour:
   redSlider: {fileID: 336000525}
   greenSlider: {fileID: 100192520}
   blueSlider: {fileID: 699052675}
-  imgName: LeftImage
+  imgName: TeamA
 --- !u!224 &543330379 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224470744891340490, guid: 6c8e10e53ea94f140aab0545d5075b2c,
@@ -1118,7 +1118,7 @@ GameObject:
   - component: {fileID: 595017091}
   - component: {fileID: 595017090}
   m_Layer: 5
-  m_Name: RightImage
+  m_Name: TeamB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2175,7 +2175,7 @@ GameObject:
   - component: {fileID: 1511450684}
   - component: {fileID: 1511450683}
   m_Layer: 5
-  m_Name: LeftImage
+  m_Name: TeamA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

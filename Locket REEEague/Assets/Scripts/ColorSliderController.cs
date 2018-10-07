@@ -16,18 +16,17 @@ public class ColorSliderController : MonoBehaviour {
     {
         img = GameObject.Find(imgName).GetComponent<Image>();
         squareColor = img.color;
-        if(imgName == "LeftImage")
+        if(imgName == "TeamA")
         {
             redSlider.value = 0;
             greenSlider.value = 0.4857143f;
             blueSlider.value = 1f;
-        } else if (imgName == "RightImage")
+        } else if (imgName == "TeamB")
         {
             redSlider.value = 1f;
             greenSlider.value = 0.5f;
             blueSlider.value = 0f;
         }
-
         pastStart = true;
     }
 	

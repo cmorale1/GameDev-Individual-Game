@@ -11,37 +11,34 @@ public class GoalController : MonoBehaviour {
     public delegate void OnGoal(GoalController goal);
     public event OnGoal onGoal;
 
-    public int thisTeamScore = 0;
-    public int opposingTeamScore = 0;
+    private int opposingTeamScore;
     private Text opposingTeamScoreText;
-
-    private Vector3 ballResetPosition;
-    private Vector3 thisTeamResetPosition;
-    private Vector3 opposingTeamResetPosition;
 
     private GameObject ball;
     private GameObject thisTeamVehicle;
     private GameObject opposingTeamVehicle;
 
+    private Vector3 ballResetPosition;
+    private Vector3 thisTeamResetPosition;
+    private Vector3 opposingTeamResetPosition;
+
     private Animator ballAnim;
     private Animation explosionAnim;
+
+    private SpriteRenderer mainNetSpRend;
+    private SpriteRenderer topNetSpRend;
 
     private Rigidbody2D ballRigidBody;
     private Rigidbody2D thisTeamRigidBody;
     private Rigidbody2D opposingTeamRigidBody;
 
-    private SpriteRenderer mainNetSpRend;
-    private SpriteRenderer topNetSpRend;
-
     private float rVal, gVal, bVal;
 
-    private ParticleSystem leftPSystem;
-    private ParticleSystem rightPSystem;
-
-    public GameObject gameBallPrefab;
+    private ParticleSystem leftPSystem, rightPSystem;
 
     // Use this for initialization
     void Start () {
+        opposingTeamScore = 0;
         opposingTeamScoreText = GameObject.Find(opposingTeamName+"_Score").GetComponent<Text>();
 
         ball = GameObject.Find("GameBall");
@@ -65,31 +62,24 @@ public class GoalController : MonoBehaviour {
         if (thisTeamName == "TeamA")
         {
             mainNetSpRend = GameObject.Find("mainLeftNet").GetComponent<SpriteRenderer>();
-            topNetSpRend = GameObject.Find("topLeftNet").GetComponent<SpriteRenderer>();
-            rVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
-            gVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
-            bVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");            
+            topNetSpRend = GameObject.Find("topLeftNet").GetComponent<SpriteRenderer>();       
         }
         if(thisTeamName == "TeamB")
         {
             mainNetSpRend = GameObject.Find("mainRightNet").GetComponent<SpriteRenderer>();
             topNetSpRend = GameObject.Find("topRightNet").GetComponent<SpriteRenderer>();
-            rVal = PlayerPrefs.GetFloat("RightImage_RedValue");
-            gVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
-            bVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
         }
+
+        rVal = PlayerPrefs.GetFloat(thisTeamName+"_RedValue");
+        gVal = PlayerPrefs.GetFloat(thisTeamName+"_GreenValue");
+        bVal = PlayerPrefs.GetFloat(thisTeamName+"_BlueValue");
 
         mainNetSpRend.color = new Color(rVal, gVal, bVal);
         topNetSpRend.color = new Color(rVal, gVal, bVal);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    // This could probably be put into a Coroutine or Observer to invoke the spawn of the gameBall prefab
-    void resetPositions()
+    // Method used for placing game objects (ball and players) back to their starting positions
+    void ResetPositions()
     {
         ball.transform.position = ballResetPosition;
         ball.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
@@ -105,7 +95,7 @@ public class GoalController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Collision check for game ball and the goal this script is attached to
+        // Check to see if the collider is triggered inside of the net
         if (collision.gameObject.layer == LayerMask.NameToLayer("GameBall"))
         {
             StartCoroutine(GoalAndExplodeAndRespawn());
@@ -123,6 +113,7 @@ public class GoalController : MonoBehaviour {
         }
     }
 
+    // Method used to start the ball explosion animation and wait to respawn until animation is finished
     IEnumerator GoalAndExplodeAndRespawn()
     {
         if (onGoal != null)
@@ -135,6 +126,6 @@ public class GoalController : MonoBehaviour {
         yield return new WaitForSeconds(explosionAnim.clip.length);
         ballAnim.SetBool("goalMade", false);
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-        resetPositions();
+        ResetPositions();
     }
 }

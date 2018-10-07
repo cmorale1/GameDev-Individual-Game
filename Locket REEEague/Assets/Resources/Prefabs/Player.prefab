@@ -51,7 +51,6 @@ GameObject:
   - component: {fileID: 4828524693678596}
   - component: {fileID: 212692091070454226}
   - component: {fileID: 50751084033201260}
-  - component: {fileID: 95099917731579910}
   - component: {fileID: 114180577997848262}
   - component: {fileID: 82013954985418658}
   - component: {fileID: 60020533193302948}
@@ -271,24 +270,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &95099917731579910
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1988261823683980}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114180577997848262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -300,8 +281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e73e7039f7183e4ca997c5613c9f718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 10
-  jumpPower: 400
   teamName: TeamA
   groundMask:
     serializedVersion: 2

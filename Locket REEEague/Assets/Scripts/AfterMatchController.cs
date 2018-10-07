@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class AfterMatchController : MonoBehaviour {
 
     private Text teamAScoreText;
     private Text teamBScoreText;
-
-    private float teamARVal;
-    private float teamAGVal;
-    private float teamABVal;
-
-    private float teamBRVal;
-    private float teamBGVal;
-    private float teamBBVal;
+    private float teamARVal, teamAGVal, teamABVal;
+    private float teamBRVal, teamBGVal, teamBBVal;
 
     // Use this for initialization
     void Start()
@@ -26,13 +19,13 @@ public class AfterMatchController : MonoBehaviour {
         teamAScoreText.text = PlayerPrefs.GetFloat("TeamA_TotalScore").ToString();
         teamBScoreText.text = PlayerPrefs.GetFloat("TeamB_TotalScore").ToString();
 
-        teamARVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
-        teamAGVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
-        teamABVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+        teamARVal = PlayerPrefs.GetFloat("TeamA_RedValue");
+        teamAGVal = PlayerPrefs.GetFloat("TeamA_GreenValue");
+        teamABVal = PlayerPrefs.GetFloat("TeamA_BlueValue");
 
-        teamBRVal = PlayerPrefs.GetFloat("RightImage_RedValue");
-        teamBGVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
-        teamBBVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+        teamBRVal = PlayerPrefs.GetFloat("TeamB_RedValue");
+        teamBGVal = PlayerPrefs.GetFloat("TeamB_GreenValue");
+        teamBBVal = PlayerPrefs.GetFloat("TeamB_BlueValue");
 
         teamAScoreText.color = new Color(teamARVal, teamAGVal, teamABVal);
         teamBScoreText.color = new Color(teamBRVal, teamBGVal, teamBBVal);

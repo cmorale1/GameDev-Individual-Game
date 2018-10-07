@@ -9,6 +9,7 @@ public class AudioController : MonoBehaviour {
     public AudioSource audioSourceLoop;
     private bool startedLoop;
 
+    // Method used in-game to start the second audio clip immediately after the first
     void FixedUpdate()
     {
         if(!audioSourceIntro.isPlaying && !startedLoop)

@@ -7,35 +7,25 @@ using UnityEngine.SceneManagement;
 public class Manager : MonoBehaviour {
 
     private Text matchTimeText;
-    public int teamAScore = 4;
-    public int teamBScore = 0;
     private Text teamAScoreText;
     private Text teamBScoreText;
-    public float timeLeft = 60.0f;
-
-    private float teamARVal;
-    private float teamAGVal;
-    private float teamABVal;
-
-    private float teamBRVal;
-    private float teamBGVal;
-    private float teamBBVal;
+    public float timeLeft;
+    private float teamARVal, teamAGVal, teamABVal;
+    private float teamBRVal, teamBGVal, teamBBVal;
 
     // Use this for initialization
     void Start () {
         matchTimeText = GameObject.Find("MatchTime").GetComponent<Text>();
         teamAScoreText = GameObject.Find("TeamA_Score").GetComponent<Text>();
         teamBScoreText = GameObject.Find("TeamB_Score").GetComponent<Text>();
-        teamAScoreText.text = teamAScore.ToString();
-        teamBScoreText.text = teamBScore.ToString();
 
-        teamARVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
-        teamAGVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
-        teamABVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
+        teamARVal = PlayerPrefs.GetFloat("TeamA_RedValue");
+        teamAGVal = PlayerPrefs.GetFloat("TeamA_GreenValue");
+        teamABVal = PlayerPrefs.GetFloat("TeamA_BlueValue");
 
-        teamBRVal = PlayerPrefs.GetFloat("RightImage_RedValue");
-        teamBGVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
-        teamBBVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
+        teamBRVal = PlayerPrefs.GetFloat("TeamB_RedValue");
+        teamBGVal = PlayerPrefs.GetFloat("TeamB_GreenValue");
+        teamBBVal = PlayerPrefs.GetFloat("TeamB_BlueValue");
 
         teamAScoreText.color = new Color(teamARVal, teamAGVal, teamABVal);
         teamBScoreText.color = new Color(teamBRVal, teamBGVal, teamBBVal);
@@ -43,10 +33,11 @@ public class Manager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        updateTime();
+        UpdateTime();
 	}
 
-    void updateTime ()
+    // Method is used for decrementing the match time by seconds
+    void UpdateTime ()
     {
         timeLeft -= Time.deltaTime;
         matchTimeText.text = (timeLeft).ToString("0");

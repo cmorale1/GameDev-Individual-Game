@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerMovementScript : MonoBehaviour {
 
-    public float walkSpeed = 10f;
-    public float jumpPower = 500f;
-    private float rotationSpeed = 0f;
-    private float rotationRight = 360f;
-    private float rot = 0f;
     public string teamName;
+    private float movementSpeed;
+    private float jumpPower;
+    private float rotationSpeed;
+    private float rotationRight;
+    private float rot;
 
     public LayerMask groundMask;
-    public float groundRadius = 0.1f;
+    private float groundRadius;
 
     private Rigidbody2D theRigidbody;
     private Transform groundCheckLeft;
@@ -21,37 +20,30 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private Quaternion groundedRotationPosition;
 
-    private bool firstJump;
-    private bool airRolling;
-    private bool falling;
+    private bool firstJump, airRolling, falling;
 
     private SpriteRenderer vehicleSpRend;
     private float rVal, gVal, bVal;
 
 	// Use this for initialization
 	void Start () {
+        movementSpeed = 10f;
+        jumpPower = 500f;
+        rotationSpeed = 400f;
+        rotationRight = 360f;
+        rot = 0f;
+        groundRadius = 0.1f;
         firstJump = false;
         airRolling = false;
         falling = false;
-        rotationRight = 360f;
         groundedRotationPosition = transform.rotation;
         theRigidbody = GetComponent<Rigidbody2D>();
         groundCheckLeft = transform.Find("LeftGround");
         groundCheckRight = transform.Find("RightGround");
         vehicleSpRend = GetComponent<SpriteRenderer>();
-        if(teamName == "TeamA")
-        {
-            rVal = PlayerPrefs.GetFloat("LeftImage_RedValue");
-            gVal = PlayerPrefs.GetFloat("LeftImage_GreenValue");
-            bVal = PlayerPrefs.GetFloat("LeftImage_BlueValue");
-        }
-        if(teamName == "TeamB")
-        {
-            rVal = PlayerPrefs.GetFloat("RightImage_RedValue");
-            gVal = PlayerPrefs.GetFloat("RightImage_GreenValue");
-            bVal = PlayerPrefs.GetFloat("RightImage_BlueValue");
-        }
-
+        rVal = PlayerPrefs.GetFloat(teamName+"_RedValue");
+        gVal = PlayerPrefs.GetFloat(teamName+"_GreenValue");
+        bVal = PlayerPrefs.GetFloat(teamName+"_BlueValue");
         vehicleSpRend.color = new Color(rVal, gVal, bVal);
 	}
 	
@@ -92,16 +84,16 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             if(teamName == "TeamA")
             {
-                transform.Rotate(Vector3.back * Time.deltaTime * 200f);
+                transform.Rotate(Vector3.back * Time.deltaTime * 400f);
             }
             if(teamName == "TeamB")
             {
-                transform.Rotate(Vector3.forward * Time.deltaTime * 200f);
+                transform.Rotate(Vector3.forward * Time.deltaTime * 400f);
             }
         }
         if (!airRolling)
         {
-            theRigidbody.velocity = theRigidbody.velocity = new Vector2(inputX * walkSpeed, theRigidbody.velocity.y);
+            theRigidbody.velocity = theRigidbody.velocity = new Vector2(inputX * movementSpeed, theRigidbody.velocity.y);
         }
         if (!grounded && jumping && !firstJump)
         {
@@ -116,14 +108,12 @@ public class PlayerMovementScript : MonoBehaviour {
         {
             if(teamName == "TeamA")
             {
-                rotationSpeed = 400f;
                 rot = rotationSpeed * Time.deltaTime;
                 rotationRight -= rot;
                 transform.Rotate(0, 0, -rot);
             }
             if(teamName == "TeamB")
             {
-                rotationSpeed = 400f;
                 rot = rotationSpeed * Time.deltaTime;
                 rotationRight -= rot;
                 transform.Rotate(0, 0, rot);
@@ -133,17 +123,8 @@ public class PlayerMovementScript : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            theRigidbody.angularVelocity = 0f;
-            falling = false;
-        }
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
-        {
-            theRigidbody.angularVelocity = 0f;
-            falling = false;
-        }
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        // Checks for the player's collision with the ground, wall, and other player to stop their rotation velocity
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             theRigidbody.angularVelocity = 0f;
             falling = false;
