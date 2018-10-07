@@ -28,7 +28,7 @@ public class PlayerMovementScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         movementSpeed = 10f;
-        jumpPower = 500f;
+        jumpPower = 380f;
         rotationSpeed = 400f;
         rotationRight = 360f;
         rot = 0f;
