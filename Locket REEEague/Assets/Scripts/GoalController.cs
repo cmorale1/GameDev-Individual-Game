@@ -82,6 +82,7 @@ public class GoalController : MonoBehaviour {
     void ResetPositions()
     {
         ball.transform.position = ballResetPosition;
+        ball.GetComponent<CircleCollider2D>().enabled = true;
         ball.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
         thisTeamVehicle.transform.position = thisTeamResetPosition;
         opposingTeamVehicle.transform.position = opposingTeamResetPosition;
@@ -122,10 +123,14 @@ public class GoalController : MonoBehaviour {
         }
 
         ballAnim.SetBool("goalMade", true);
+        Debug.Log("Animation Started");
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(explosionAnim.clip.length);
+        ball.GetComponent<CircleCollider2D>().enabled = false;
+        yield return new WaitForSeconds((float) explosionAnim.clip.length - 0.1f);
         ballAnim.SetBool("goalMade", false);
+        Debug.Log("Animation Ended");
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+
         ResetPositions();
     }
 }
